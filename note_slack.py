@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from serial import arduino_1
 
 app = Flask(__name__)
 
@@ -35,8 +36,10 @@ class Message(object):
 @app.route("/api/v1/get_request", methods=['POST'])
 def webhook():
     msg = Message(request.form)
+    arduino_1()
     print(msg)
     print("body: %s" % request.data)
+
     return request.data
 
 if __name__ == "__main__":
