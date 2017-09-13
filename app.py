@@ -51,7 +51,6 @@ def webhook():
         arduino_1("2")
     else:
         arduino_1("3")
-    arduino_1("1")
     return request.data
 
 if __name__ == "__main__":
