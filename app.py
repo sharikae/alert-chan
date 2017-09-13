@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from serial_py import arduino_1
+from alertchan.models import ConfigData
 
 app = Flask(__name__)
 
@@ -35,7 +36,8 @@ class Message(object):
 @app.route('/')
 def index():
     title = "Alert=Chan"
-    return render_template('index.html', title=title)
+    contents = ConfigData.query.all()
+    return render_template('index.html', title=title, contents=contents)
 
 
 @app.route("/api/v1/get_request", methods=['POST'])
@@ -45,12 +47,12 @@ def webhook():
     print(msg)
     print(msg.user_name)
 
-    if msg.user_name == "Twitter":
+    if msg.user_name == "twitter":
         arduino_1("1")
     elif msg.user_name == "JAlert":
-        arduino_1("2")
-    else:
         arduino_1("3")
+    else:
+        arduino_1("2")
     return request.data
 
 if __name__ == "__main__":

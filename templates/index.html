@@ -1,23 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="container">
+    {% for content in contents %}
         <div class="checkbox">
             <label>
-                <input type="checkbox" data-toggle="toggle">
-                Do Not Disturb
+                <input type="checkbox" {{content.toggle}} data-toggle="toggle">
+                {{content.name}}
             </label>
         </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" data-toggle="toggle">
-                Slack Notification
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" data-toggle="toggle">
-                Twitter Notification
-            </label>
-        </div>
+    {% endfor%}
     </div>
 {% endblock %}
