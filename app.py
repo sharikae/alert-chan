@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from serial import arduino_1
+from serial_py import arduino_1
 
 app = Flask(__name__)
 
@@ -40,18 +40,18 @@ def index():
 
 @app.route("/api/v1/get_request", methods=['POST'])
 def webhook():
-    msg = Message(request.form)
+    # msg = Message(request.form)
 
-    print(msg)
-    print(msg.user_name)
+    # print(msg)
+    # print(msg.user_name)
 
-    if msg.user_name == "Twitter":
-        arduino_1("1")
-    elif msg.user_name == "JAlert":
-        arduino_1("2")
-    else:
-        arduino_1("3")
-
+    # if msg.user_name == "Twitter":
+        # arduino_1("1")
+    # elif msg.user_name == "JAlert":
+        # arduino_1("2")
+    #else:
+        # arduino_1("3")
+    arduino_1("1")
     return request.data
 
 if __name__ == "__main__":
