@@ -42,7 +42,7 @@ def index():
 def webhook():
     msg = Message(request.form)
 
-    arduino_1("1")
+    # arduino_1("1")
     print(msg)
     print(msg["user"])
     print("body: %s" % request.data)
