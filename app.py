@@ -44,7 +44,7 @@ def webhook():
 
     # arduino_1("1")
     print(msg)
-    print(msg["user"])
+    print(msg.user_name)
     print("body: %s" % request.data)
 
     return request.data
