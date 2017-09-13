@@ -46,11 +46,11 @@ def webhook():
     print(msg.user_name)
 
     if msg.user_name == "Twitter":
-        # arduino_1("1")
+        arduino_1("1")
     elif msg.user_name == "JAlert":
-        # arduino_1("2")
+        arduino_1("2")
     else:
-        # arduino_1("1")
+        arduino_1("3")
 
     return request.data
 
