@@ -1,33 +1,53 @@
-import time
-import serial
-import sys
-
 from flask import Flask
-
+from flask import render_template
+from flask import request
+from serial import arduino_1
 
 app = Flask(__name__)
 
-@app.route("/on")
-def arduino_1():
-	msg=bytes("o",'utf-8')
-	ser.write(msg)
-	time.sleep(0.1)
-	return "LED 1 ON!"
 
-@app.route("/off")
-def arduino_2():
-	msg=bytes("p",'utf-8')
-	ser.write(msg)
-	time.sleep(0.1)
-	return "LED 2 ON!"
+class Message(object):
+    """Slackのメッセージクラス"""
+    token = ""
+    team_id = ""
+    channel_id = ""
+    channel_name = ""
+    timestamp = 0
+    user_id = ""
+    user_name = ""
+    text = ""
+    trigger_word = ""
 
+    def __init__(self, params):
+        self.team_id = params["team_id"]
+        self.channel_id = params["channel_id"]
+        self.channel_name = params["channel_name"]
+        self.timestamp = params["timestamp"]
+        self.user_id = params["user_id"]
+        self.user_name = params["user_name"]
+        self.text = params["text"]
+        self.trigger_word = params["trigger_word"]
+
+    def __str__(self):
+        res = self.__class__.__name__
+        res += "@{0.token}[channel={0.channel_name}, user={0.user_name}, text={0.text}]".format(self)
+        return res
+
+
+@app.route('/')
+def index():
+    title = "Alert=Chan"
+    return render_template('index.html', title=title)
+
+
+@app.route("/api/v1/get_request", methods=['POST'])
+def webhook():
+    msg = Message(request.form)
+    arduino_1("1")
+    print(msg)
+    print("body: %s" % request.data)
+
+    return request.data
 
 if __name__ == "__main__":
-	tmp_msg = "/dev/cu.usbmodem1411"
-	ser = serial.Serial(tmp_msg)
-	ser.baudrate = 9600
-	ser.timeout = 1
-	print(ser.portstr)
-
-	app.run("127.0.0.1",1234)
-	ser.close()
+    app.run("0.0.0.0", 80)
