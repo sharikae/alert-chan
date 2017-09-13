@@ -41,11 +41,13 @@ def index():
 @app.route("/api/v1/get_request", methods=['POST'])
 def webhook():
     msg = Message(request.form)
+
     arduino_1("1")
     print(msg)
+    print(msg["user"])
     print("body: %s" % request.data)
 
     return request.data
 
 if __name__ == "__main__":
-    app.run("0.0.0.0", 80)
+    app.run("0.0.0.0", 8080)
