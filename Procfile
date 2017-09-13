@@ -1,1 +1,1 @@
-web: gunicorn note_slack:app --log-file -
+web: gunicorn app:app --log-file -
