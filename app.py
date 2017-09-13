@@ -42,10 +42,15 @@ def index():
 def webhook():
     msg = Message(request.form)
 
-    # arduino_1("1")
     print(msg)
     print(msg.user_name)
-    print("body: %s" % request.data)
+
+    if msg.user_name == "Twitter":
+        # arduino_1("1")
+    elif msg.user_name == "JAlert":
+        # arduino_1("2")
+    else:
+        # arduino_1("1")
 
     return request.data
 
