@@ -11,7 +11,7 @@ django-adminlte==1.2
 django-adminlte2==0.1.6
 django-bootstrap-form==3.2.1
 django-pandas==0.4.3
-ecdsa==0.13
+ecdsa==0.13.3
 esptool==2.0
 Flask==0.12.2
 gunicorn==19.7.1
